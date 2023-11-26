@@ -1,9 +1,22 @@
 <template>
   <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/newspage">News</router-link> |
-    <router-link to="/addform">Add News</router-link> |
-    <router-link to="/aboutpage">About</router-link>
+    <q-tabs>
+      <q-route-tab icon="home" to="/" exact />
+      <q-route-tab icon="mail" to="/newspage" exact>
+        <q-badge color="red" floating>{{ allNews.length }}+</q-badge>
+      </q-route-tab>
+      <q-route-tab icon="add" to="/addform" exact />
+      <q-route-tab icon="people" to="/aboutpage" exact />
+    </q-tabs>
   </nav>
   <router-view />
 </template>
+
+<script>
+import { mapGetters } from "vuex";
+
+export default {
+  name: "App",
+  computed: mapGetters(["allNews"]),
+};
+</script>
