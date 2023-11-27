@@ -43,14 +43,53 @@ const state = {
       content:
         "Our Changing Planet Our Changing Planet says we are not going to hell, and we are goin to heavens. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     },
+    {
+      id: 7,
+      author: "Mahmoud",
+      title: "Hello Baseball",
+      content:
+        "Our Changing Planet Our Changing Planet says we are not going to hell, and we are goin to heavens. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    },
+    {
+      id: 8,
+      author: "Mahmoud",
+      title: "Hello Baseball",
+      content:
+        "Our Changing Planet Our Changing Planet says we are not going to hell, and we are goin to heavens. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    },
+    {
+      id: 9,
+      author: "Mahmoud",
+      title: "Hello Baseball",
+      content:
+        "Our Changing Planet Our Changing Planet says we are not going to hell, and we are goin to heavens. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    },
+    {
+      id: 10,
+      author: "Mahmoud",
+      title: "Hello Baseball",
+      content:
+        "Our Changing Planet Our Changing Planet says we are not going to hell, and we are goin to heavens. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    },
   ],
 };
 const getters = {
   allNews: (state) => state.news,
 };
 
-const actions = {};
-const mutations = {};
+const actions = {
+  addNews({ commit }, obj) {
+    commit("addNews", obj);
+  },
+  delNews({ commit }, id) {
+    commit("deleteNews", id);
+  },
+};
+const mutations = {
+  addNews: (state, obj) => state.news.unshift(obj),
+  deleteNews: (state, id) =>
+    (state.news = state.news.filter((x) => x.id !== id)),
+};
 
 export default {
   state,

@@ -44,6 +44,8 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   name: "NewsForm",
 
@@ -56,27 +58,24 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["addNews"]),
     onSubmit() {
-      if (this.toggle !== true) {
-        $q.notify({
-          color: "red-5",
-          textColor: "white",
-          icon: "warning",
-          message: "You need to accept the license and terms first",
+      if (this.toggle) {
+        this.addNews({
+          id: Math.random(),
+          title: this.title,
+          author: this.author,
+          content: this.content,
         });
+        this.onReset();
       } else {
-        $q.notify({
-          color: "green-4",
-          textColor: "white",
-          icon: "cloud_done",
-          message: "Submitted",
-        });
+        alert("YOU MUST TURN THE TOGGLE ON");
       }
     },
     onReset() {
-      this.title = null;
-      this.author = null;
-      this.content = null;
+      this.title = " ";
+      this.author = " ";
+      this.content = " ";
       this.toggle = false;
     },
   },
