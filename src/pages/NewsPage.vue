@@ -15,13 +15,22 @@
           {{ item.content }}
         </q-card-section>
         <q-card-actions vertical class="justify-around q-px-md">
-          <q-btn
-            @click="deleteNews(item.id)"
-            flat
-            round
-            color="red"
-            icon="delete"
-          />
+          <span>
+            <q-btn
+              @click="deleteNews(item.id)"
+              flat
+              round
+              color="red"
+              icon="delete"
+            />
+            <q-btn
+              @click="editNews(item.id)"
+              flat
+              round
+              color="green"
+              icon="edit"
+            />
+          </span>
         </q-card-actions>
       </q-card>
     </div>
@@ -35,10 +44,13 @@ export default {
   name: "NewsPage",
   computed: mapGetters(["allNews"]),
   methods: {
-    ...mapActions(["delNews"]),
+    ...mapActions(["delNews", "edNews"]),
     deleteNews(id) {
       this.delNews(id);
       console.log(id, "Delete");
+    },
+    editNews(id) {
+      this.edNews(id);
     },
   },
 };

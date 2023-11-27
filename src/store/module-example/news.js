@@ -84,11 +84,15 @@ const actions = {
   delNews({ commit }, id) {
     commit("deleteNews", id);
   },
+  edNews({ commit }, id) {
+    commit("editNews", id);
+  },
 };
 const mutations = {
   addNews: (state, obj) => state.news.unshift(obj),
   deleteNews: (state, id) =>
     (state.news = state.news.filter((x) => x.id !== id)),
+  editNews: (state, id) => console.log(id, "EDIT DONE"),
 };
 
 export default {
