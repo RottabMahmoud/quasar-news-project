@@ -72,24 +72,20 @@ export default {
   methods: {
     ...mapActions(["addNews"]),
     onSubmit() {
-      if (!this.edit) {
-        if (this.edit === false) {
-          if (this.toggle) {
-            this.addNews({
-              id: Math.random(),
-              title: this.title,
-              author: this.author,
-              content: this.content,
-            });
-            this.onReset();
-          } else {
-            alert("YOU MUST TURN THE TOGGLE ON");
-          }
-        } else if (this.edit === false) {
-          console.log("EDIT YA KHAWAL");
+      if (this.submit === true) {
+        if (this.toggle) {
+          this.addNews({
+            id: Math.random(),
+            title: this.title,
+            author: this.author,
+            content: this.content,
+          });
+          this.onReset();
+        } else {
+          alert("YOU MUST TURN THE TOGGLE ON");
         }
-      } else {
-        console.log("EDIT EDIT EDIT");
+      } else if (this.edit === true) {
+        console.log("EDIT YA KHAWAL");
       }
     },
     onReset() {
