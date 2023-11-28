@@ -1,5 +1,5 @@
 <template>
-  <h1>Version 1.0.0</h1>
+  <h3 class="absolute-center q-mt-md">Version 1.0.0</h3>
 </template>
 
 <script>

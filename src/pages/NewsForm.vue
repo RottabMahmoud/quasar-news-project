@@ -1,6 +1,6 @@
 <template>
-  <div class="q-pa-md float-middle">
-    <div class="q-gutter-md" style="max-width: 300px">
+  <div class="q-pa-md">
+    <div class="q-gutter-md absolute-center q-mt-md" style="max-width: 300px">
       <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
         <q-input
           filled
@@ -111,5 +111,3 @@ export default {
   },
 };
 </script>
-
-<style></style>

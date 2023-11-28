@@ -1,5 +1,7 @@
 <template>
-  <h1>Hello World</h1>
+  <h2 class="absolute-center q-mt-md">
+    Hello, Welcome to the Quasar/ Vue News App
+  </h2>
 </template>
 
 <script>
