@@ -90,6 +90,12 @@ export default {
           author: this.author,
           content: this.content,
         });
+        console.log("after PARTY");
+        // this.title = " ";
+        // this.author = " ";
+        // this.content = " ";
+        // this.toggle = false;
+        this.$router.push("/newspage");
       } else alert("Please Enable the toggle");
     },
     onReset() {
@@ -106,7 +112,6 @@ export default {
     this.content = this.editObj.content;
     this.edit = this.editObj.edit;
     this.submit = !this.edit;
-
     this.toggle = false;
   },
 };
