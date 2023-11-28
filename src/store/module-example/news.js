@@ -72,9 +72,11 @@ const state = {
         "Our Changing Planet Our Changing Planet says we are not going to hell, and we are goin to heavens. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     },
   ],
+  editObj: {},
 };
 const getters = {
   allNews: (state) => state.news,
+  editObj: (state) => state.editObj,
 };
 
 const actions = {
@@ -84,15 +86,18 @@ const actions = {
   delNews({ commit }, id) {
     commit("deleteNews", id);
   },
-  edNews({ commit }, id) {
-    commit("editNews", id);
+  edNews({ commit }, obj) {
+    commit("editNews", obj);
   },
 };
 const mutations = {
   addNews: (state, obj) => state.news.unshift(obj),
   deleteNews: (state, id) =>
     (state.news = state.news.filter((x) => x.id !== id)),
-  editNews: (state, id) => console.log(id, "EDIT DONE"),
+  editNews: (state, obj) => {
+    state.editObj = { ...obj, edit: true };
+    // console.log(state.editObj, "CONSOLE LAKSD:ASJDLAISJD:AISDA");
+  },
 };
 
 export default {

@@ -29,7 +29,18 @@
         <q-toggle v-model="toggle" label="I accept the license and terms" />
 
         <div>
-          <q-btn label="Submit" type="submit" color="primary" />
+          <q-btn
+            v-if="this.submit === true"
+            label="Submit"
+            type="submit"
+            color="primary"
+          />
+          <q-btn
+            v-if="this.edit === true"
+            label="Edit"
+            type="submit"
+            color="secondary"
+          />
           <q-btn
             label="Reset"
             type="reset"
@@ -44,32 +55,41 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "NewsForm",
-
   data() {
     return {
       title: "",
       author: "",
       content: "",
       toggle: false,
+      edit: false,
+      submit: true,
     };
   },
   methods: {
     ...mapActions(["addNews"]),
     onSubmit() {
-      if (this.toggle) {
-        this.addNews({
-          id: Math.random(),
-          title: this.title,
-          author: this.author,
-          content: this.content,
-        });
-        this.onReset();
+      if (!this.edit) {
+        if (this.edit === false) {
+          if (this.toggle) {
+            this.addNews({
+              id: Math.random(),
+              title: this.title,
+              author: this.author,
+              content: this.content,
+            });
+            this.onReset();
+          } else {
+            alert("YOU MUST TURN THE TOGGLE ON");
+          }
+        } else if (this.edit === false) {
+          console.log("EDIT YA KHAWAL");
+        }
       } else {
-        alert("YOU MUST TURN THE TOGGLE ON");
+        console.log("EDIT EDIT EDIT");
       }
     },
     onReset() {
@@ -78,6 +98,17 @@ export default {
       this.content = " ";
       this.toggle = false;
     },
+  },
+  computed: mapGetters(["editObj"]),
+  created() {
+    this.title = this.editObj.title;
+    this.author = this.editObj.author;
+    this.content = this.editObj.content;
+    this.edit = this.editObj.edit;
+    this.submit = !this.edit;
+
+    this.toggle = false;
+    console.log(this.editObj, "created");
   },
 };
 </script>

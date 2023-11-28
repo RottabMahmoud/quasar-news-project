@@ -47,16 +47,21 @@ export default {
     ...mapActions(["delNews", "edNews"]),
     deleteNews(id) {
       this.delNews(id);
-      console.log(id, "Delete");
     },
     editNews(id) {
-      this.edNews(id);
+      const editItem = this.allNews.find((x) => x.id === id);
+      // console.log(editItem, "this is a WARNING");
+      this.$router.push("/addform");
+      this.edNews(editItem);
+      // fill the form fields with this data
+      // turn the submit button into edit
+      //
     },
   },
 };
 </script>
 
-<style>
+<style scoped>
 .example-row-stacked-to-horizontal .col > div {
   padding: 10px 15px;
   background: rgba(#999, 15);
