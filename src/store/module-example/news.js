@@ -89,6 +89,9 @@ const actions = {
   edNews({ commit }, obj) {
     commit("editNews", obj);
   },
+  setEdit({ commit }, obj) {
+    commit("setNews", obj);
+  },
 };
 const mutations = {
   addNews: (state, obj) => state.news.unshift(obj),
@@ -96,7 +99,15 @@ const mutations = {
     (state.news = state.news.filter((x) => x.id !== id)),
   editNews: (state, obj) => {
     state.editObj = { ...obj, edit: true };
-    // console.log(state.editObj, "CONSOLE LAKSD:ASJDLAISJD:AISDA");
+  },
+  setNews: (state, obj) => {
+    let id = state.editObj.id;
+    console.log(id, "ID");
+    const resultIndex = state.news.findIndex((x) => x.id === state.editObj.id);
+    console.log(resultIndex, "INDEX");
+    state.news[resultIndex].title = obj.title;
+    state.news[resultIndex].author = obj.author;
+    state.news[resultIndex].content = obj.content;
   },
 };
 

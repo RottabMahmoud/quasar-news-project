@@ -70,7 +70,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["addNews"]),
+    ...mapActions(["addNews", "setEdit"]),
     onSubmit() {
       if (this.submit === true) {
         if (this.toggle) {
@@ -84,9 +84,13 @@ export default {
         } else {
           alert("YOU MUST TURN THE TOGGLE ON");
         }
-      } else if (this.edit === true) {
-        console.log("EDIT YA KHAWAL");
-      }
+      } else if (this.edit === true && this.toggle === true) {
+        this.setEdit({
+          title: this.title,
+          author: this.author,
+          content: this.content,
+        });
+      } else alert("Please Enable the toggle");
     },
     onReset() {
       this.title = " ";
@@ -104,7 +108,6 @@ export default {
     this.submit = !this.edit;
 
     this.toggle = false;
-    console.log(this.editObj, "created");
   },
 };
 </script>
