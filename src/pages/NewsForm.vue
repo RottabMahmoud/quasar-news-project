@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-md">
+  <div class="q-pa-md float-middle">
     <div class="q-gutter-md" style="max-width: 300px">
       <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
         <q-input
@@ -90,18 +90,13 @@ export default {
           author: this.author,
           content: this.content,
         });
-        console.log("after PARTY");
-        // this.title = " ";
-        // this.author = " ";
-        // this.content = " ";
-        // this.toggle = false;
         this.$router.push("/newspage");
       } else alert("Please Enable the toggle");
     },
     onReset() {
-      this.title = " ";
-      this.author = " ";
-      this.content = " ";
+      this.title = "";
+      this.author = "";
+      this.content = "";
       this.toggle = false;
     },
   },

@@ -50,12 +50,8 @@ export default {
     },
     editNews(id) {
       const editItem = this.allNews.find((x) => x.id === id);
-      // console.log(editItem, "this is a WARNING");
       this.$router.push("/addform");
       this.edNews(editItem);
-      // fill the form fields with this data
-      // turn the submit button into edit
-      //
     },
   },
 };

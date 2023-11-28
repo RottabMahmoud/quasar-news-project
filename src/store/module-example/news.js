@@ -104,10 +104,10 @@ const mutations = {
     let id = state.editObj.id;
     console.log(id, "ID");
     const resultIndex = state.news.findIndex((x) => x.id === state.editObj.id);
-    console.log(resultIndex, "INDEX");
     state.news[resultIndex].title = obj.title;
     state.news[resultIndex].author = obj.author;
     state.news[resultIndex].content = obj.content;
+    state.editObj = {};
   },
 };
 
