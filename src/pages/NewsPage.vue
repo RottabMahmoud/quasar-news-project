@@ -44,14 +44,12 @@ export default {
   name: "NewsPage",
   computed: mapGetters(["allNews"]),
   methods: {
-    ...mapActions(["delNews", "edNews"]),
+    ...mapActions(["delNews"]),
     deleteNews(id) {
       this.delNews(id);
     },
     editNews(id) {
-      const editItem = this.allNews.find((x) => x.id === id);
-      this.$router.push("/addform");
-      this.edNews(editItem);
+      this.$router.push({ name: "EditForm", params: { id } });
     },
   },
 };

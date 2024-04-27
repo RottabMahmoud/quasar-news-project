@@ -13,6 +13,11 @@ const routes = [
     component: HomeView,
   },
   {
+    path: "/editform/:id?",
+    name: "EditForm",
+    component: NewsForm,
+  },
+  {
     path: "/newspage",
     name: "newspage",
     component: NewsPage,

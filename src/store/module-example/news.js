@@ -72,11 +72,9 @@ const state = {
         "Our Changing Planet Our Changing Planet says we are not going to hell, and we are goin to heavens. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     },
   ],
-  editObj: {},
 };
 const getters = {
   allNews: (state) => state.news,
-  editObj: (state) => state.editObj,
 };
 
 const actions = {
@@ -86,9 +84,6 @@ const actions = {
   delNews({ commit }, id) {
     commit("deleteNews", id);
   },
-  edNews({ commit }, obj) {
-    commit("editNews", obj);
-  },
   setEdit({ commit }, obj) {
     commit("setNews", obj);
   },
@@ -97,17 +92,15 @@ const mutations = {
   addNews: (state, obj) => state.news.unshift(obj),
   deleteNews: (state, id) =>
     (state.news = state.news.filter((x) => x.id !== id)),
-  editNews: (state, obj) => {
-    state.editObj = { ...obj, edit: true };
-  },
   setNews: (state, obj) => {
-    let id = state.editObj.id;
-    console.log(id, "ID");
-    const resultIndex = state.news.findIndex((x) => x.id === state.editObj.id);
-    state.news[resultIndex].title = obj.title;
-    state.news[resultIndex].author = obj.author;
-    state.news[resultIndex].content = obj.content;
-    state.editObj = {};
+    const existingNews = state.news.find((x) => x.id === obj.id);
+    if (existingNews) {
+      existingNews.title = obj.title;
+      existingNews.author = obj.author;
+      existingNews.content = obj.content;
+    } else {
+      console.error("News item with ID", obj.id, "not found.");
+    }
   },
 };
 

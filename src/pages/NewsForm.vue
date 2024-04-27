@@ -4,7 +4,7 @@
       <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
         <q-input
           filled
-          v-model="this.author"
+          v-model="formData.title"
           label="Your name *"
           hint="Name and surname"
           lazy-rules
@@ -12,35 +12,28 @@
         />
         <q-input
           filled
-          v-model="this.title"
+          v-model="formData.author"
           label="Title*"
           hint="Title"
           lazy-rules
           :rules="[(val) => (val && val.length > 0) || 'Please type something']"
         />
         <q-input
-          v-model="content"
+          v-model="formData.content"
           label="Content*"
           hint="Content"
           filled
           type="textarea"
           :rules="[(val) => (val && val.length > 0) || 'Please type something']"
         />
-        <q-toggle v-model="toggle" label="I accept the license and terms" />
+        <q-toggle
+          v-model="formData.toggle"
+          label="I accept the license and terms"
+        />
 
         <div>
-          <q-btn
-            v-if="this.submit === true"
-            label="Submit"
-            type="submit"
-            color="primary"
-          />
-          <q-btn
-            v-if="this.edit === true"
-            label="Edit"
-            type="submit"
-            color="secondary"
-          />
+          <q-btn v-if="!isEdit" label="Submit" type="submit" color="primary" />
+          <q-btn v-if="isEdit" label="Edit" type="submit" color="secondary" />
           <q-btn
             label="Reset"
             type="reset"
@@ -61,53 +54,68 @@ export default {
   name: "NewsForm",
   data() {
     return {
-      title: "",
-      author: "",
-      content: "",
-      toggle: false,
-      edit: false,
-      submit: true,
+      formData: {
+        title: "",
+        author: "",
+        content: "",
+        toggle: false,
+      },
+      isEdit: false, // Flag to manage edit mode
     };
   },
   methods: {
     ...mapActions(["addNews", "setEdit"]),
     onSubmit() {
-      if (this.submit === true) {
-        if (this.toggle) {
-          this.addNews({
-            id: Math.random(),
-            title: this.title,
-            author: this.author,
-            content: this.content,
-          });
-          this.onReset();
+      if (this.formData.toggle) {
+        if (this.isEdit) {
+          // If editing existing news, dispatch edNews action with formData
+          console.log("CHECK");
+          this.setEdit({ ...this.formData });
         } else {
-          alert("YOU MUST TURN THE TOGGLE ON");
+          // If adding new news, dispatch addNews action with formData
+          this.addNews({ ...this.formData, id: Math.random() });
         }
-      } else if (this.edit === true && this.toggle === true) {
-        this.setEdit({
-          title: this.title,
-          author: this.author,
-          content: this.content,
-        });
+        // Redirect to the news page after submitting the form
         this.$router.push("/newspage");
-      } else alert("Please Enable the toggle");
+        // Reset the form
+        this.resetForm();
+      } else {
+        alert("YOU MUST TURN THE TOGGLE ON");
+      }
     },
+
     onReset() {
-      this.title = "";
-      this.author = "";
-      this.content = "";
-      this.toggle = false;
+      this.resetForm();
+    },
+    resetForm() {
+      this.formData = {
+        title: "",
+        author: "",
+        content: "",
+        toggle: false,
+      };
+      this.isEdit = false;
     },
   },
-  computed: mapGetters(["editObj"]),
-  created() {
-    this.title = this.editObj.title;
-    this.author = this.editObj.author;
-    this.content = this.editObj.content;
-    this.edit = this.editObj.edit;
-    this.submit = !this.edit;
-    this.toggle = false;
+  computed: {
+    ...mapGetters(["editObj", "allNews"]),
+    isEditData() {
+      return this.editObj && Object.keys(this.editObj).length > 0;
+    },
+  },
+  mounted() {
+    const id = this.$route.params.id;
+    if (id) {
+      const editItem = this.allNews.find((x) => x.id.toString() === id);
+      if (editItem) {
+        this.formData = { ...editItem };
+        this.isEdit = true;
+        // Initialize toggle field with existing value
+        this.formData.toggle = editItem.toggle;
+      } else {
+        console.error("Item with ID", id, "not found.");
+      }
+    }
   },
 };
 </script>
